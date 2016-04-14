@@ -1,5 +1,6 @@
 package rmutr.boonsathain.wanwisa.ncs1;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     String strSurname = jsonObject.getString(MyManage.column_Surname);
 
                     myManage.addNewUser(strUser, strPassword, strStatus,
-                            strName, strName);
+                            strName, strSurname);
 
 
                 }   // for
@@ -124,10 +126,50 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
             //NO Space
+            checkUser();
 
         }
 
     }  //clickLogin
+
+    private void checkUser() {
+
+        try {
+
+            SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                    MODE_PRIVATE,null);
+            Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE WHERE User = " + "'" + userString + "'", null);
+
+            cursor.moveToFirst();
+            String[] resultStrings = new String[cursor.getColumnCount()];
+            for (int i=0;i<cursor.getColumnCount();i++) {
+                resultStrings[i] = cursor.getString(i);
+            }   //for
+            cursor.close();
+
+            //Check Password
+            if (passwordString.equals(resultStrings[2])) {
+                //password Ture
+                Toast.makeText(this,"ยินดีต้อนรับ"+ resultStrings[4] + "สุ่ระบบของเรา",
+                        Toast.LENGTH_SHORT).show();
+
+            } else {
+                //password false
+                MyAlert myAlert = new MyAlert();
+                myAlert.myDialog(this, "Password False",
+                        "กรุณาพิมพ์ใหม่ Password ผิด");
+            }
+
+
+
+
+        } catch (Exception e) {
+            MyAlert myAlert = new MyAlert();
+            myAlert.myDialog(this,"ไม่มี Userนี้ คะ",
+            "ไม่มี " + userString + "ในฐานข้อมูล ของเรา");
+        }   //try
+
+    }   //checkUser
 
 
 }   //Main Class
