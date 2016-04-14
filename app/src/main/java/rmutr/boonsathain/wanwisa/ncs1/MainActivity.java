@@ -12,6 +12,9 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity {
 
     //Explicit
@@ -55,14 +58,14 @@ public class MainActivity extends AppCompatActivity {
 
             try {
 
-                OkHttpClient okHttpClient= new OkHttpClient();
+                OkHttpClient okHttpClient = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
                 Request request = builder.url("http://swiftcodingthai.com/num/php_get_user_master.php").build();
                 Response response = okHttpClient.newCall(request).execute();
                 return response.body().string();
 
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 Log.d("14April", "doIn error ==>" + e.toString());
                 return null;
             } //try
@@ -73,7 +76,29 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String strJSON) {
             super.onPostExecute(strJSON);
 
-            Log.d("14April", "strJSON ==>" +strJSON);
+            Log.d("14April", "strJSON ==>" + strJSON);
+
+            try {
+
+                JSONArray jsonArray = new JSONArray(strJSON);
+                for (int i = 0; i < jsonArray.length(); i++) {
+
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    String strUser = jsonObject.getString(MyManage.column_User);
+                    String strPassword = jsonObject.getString(MyManage.column_Pass);
+                    String strStatus = jsonObject.getString(MyManage.column_Status);
+                    String strName = jsonObject.getString(MyManage.column_Name);
+                    String strSurname = jsonObject.getString(MyManage.column_Surname);
+
+                    myManage.addNewUser(strUser, strPassword, strStatus,
+                            strName, strName);
+
+
+                }   // for
+
+            } catch (Exception e) {
+                Log.d("14April", "onPost Error ==> " + e.toString());
+            }
 
         }   //onpost
 
@@ -92,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         passwordString = passwordEditText.getText().toString().trim();
 
         //Check Space
-        if (userString.equals("") || passwordString.equals("") ) {
+        if (userString.equals("") || passwordString.equals("")) {
             //Have Space
             MyAlert myAlert = new MyAlert();
             myAlert.myDialog(this, "มีช่องว่าง", "กรุณากรอกทุกช่อง คะ");
