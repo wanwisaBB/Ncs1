@@ -11,7 +11,7 @@ public class HubService extends AppCompatActivity {
 
     //Explicit
     private ImageView hubImageView;
-    private TextView hub4TextView;
+    private TextView hub4TextView, shownameTextView;
     private String nameString, surnameString, statusString;
 
     @Override
@@ -22,9 +22,15 @@ public class HubService extends AppCompatActivity {
         //Bind Wigget
         hubImageView = (ImageView) findViewById(R.id.imageView5);
         hub4TextView = (TextView) findViewById(R.id.textView8);
+        shownameTextView = (TextView) findViewById(R.id.textView4);
 
         //check Status
         checkStatus();
+
+        //show View
+        nameString = getIntent().getStringExtra("Name");
+        surnameString = getIntent().getStringExtra("Surname");
+        shownameTextView.setText(nameString +" " + surnameString);
 
 
     }   //main Method
