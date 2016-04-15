@@ -1,5 +1,6 @@
 package rmutr.boonsathain.wanwisa.ncs1;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +28,11 @@ public class HubService extends AppCompatActivity {
 
 
     }   //main Method
+
+    public void clickAddBoat(View view) {
+        Intent intent = new Intent(HubService.this, AddBoat.class);
+        startActivity(intent);
+    }
 
     private void checkStatus() {
 

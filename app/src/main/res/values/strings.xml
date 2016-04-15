@@ -25,8 +25,9 @@
     <string name="addboat14">วันออกบัตร</string>
     <string name="addboat15">วันหมดอายุ</string>
     <string name="addboat16">ประเภทเรือประมง</string>
-    <string name="addboat17"><บันทึก/string>
+    <string name="addboat17">บันทึก</string>
     <string name="addboat18">แก้ไข</string>
     <string name="addboat19">ลบ</string>
+    <string name="recordby">ผู้บันทึก</string>
 
 </resources>
