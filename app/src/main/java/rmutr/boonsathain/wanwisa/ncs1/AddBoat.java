@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -23,6 +24,8 @@ public class AddBoat extends AppCompatActivity {
             data5String, data6String, data7String, data8String,
             data9String, data10String, data11String, data12String,
             data13String, data14String, data15String, data16String;
+
+    private Spinner spinner;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -37,11 +40,20 @@ public class AddBoat extends AppCompatActivity {
         //Bind Widget
         bindWidget();
 
+        //Create Spinner
+        createSpinner();
+
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }   //main
+
+    private void createSpinner() {
+
+
+
+    }   //createspinner
 
     private void bindWidget() {
 
@@ -59,6 +71,7 @@ public class AddBoat extends AppCompatActivity {
         data13EditText = (EditText) findViewById(R.id.editText14);
         data14EditText = (EditText) findViewById(R.id.editText15);
         data15EditText = (EditText) findViewById(R.id.editText16);
+        spinner = (Spinner) findViewById(R.id.spinner);
 
     }   //bindWidget
 
